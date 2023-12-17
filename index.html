@@ -1,1 +1,64 @@
-hello world!
+<!DOCTYPE html>
+<html>
+<head>
+    <title>اختبار</title>
+    <style>
+        .wrong { color: red; }
+        .correct { color: green; }
+    </style>
+    <script>
+        function checkAnswers(event) {
+            event.preventDefault();
+            var correctAnswers = ["B", "C", "A"];
+            var questions = ["question1", "question2", "question3"];
+            var results = document.getElementById("results");
+            results.innerHTML = "";
+
+            for (var i = 0; i < questions.length; i++) {
+                var radios = document.getElementsByName(questions[i]);
+                var userAnswer;
+                for (var j = 0; j < radios.length; j++) {
+                    radios[j].parentNode.classList.remove("wrong");
+                    radios[j].parentNode.classList.remove("correct");
+                    if (radios[j].checked) {
+                        userAnswer = radios[j].value;
+                        if (userAnswer === correctAnswers[i]) {
+                            radios[j].parentNode.classList.add("correct");
+                            results.innerHTML += "السؤال " + (i + 1) + ": صحيح<br>";
+                        } else {
+                            radios[j].parentNode.classList.add("wrong");
+                            results.innerHTML += "السؤال " + (i + 1) + ": خطأ، الإجابة الصحيحة هي " + correctAnswers[i] + "<br>";
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>اختبار HTML</h1>
+    <form onsubmit="checkAnswers(event)">
+        <p>سؤال 1: حل 5 + 4:</p>
+        <label><input type="radio" name="question1" value="A"> 7</label><br>
+        <label><input type="radio" name="question1" value="B"> 9</label><br>
+        <label><input type="radio" name="question1" value="C"> 10</label><br>
+        <label><input type="radio" name="question1" value="D"> 0</label><br>
+
+        <p>سؤال 2: ما هو لون السماء؟</p>
+        <label><input type="radio" name="question2" value="A"> أحمر</label><br>
+        <label><input type="radio" name="question2" value="B"> أخضر</label><br>
+        <label><input type="radio" name="question2" value="C"> أزرق</label><br>
+        <label><input type="radio" name="question2" value="D"> أصفر</label><br>
+
+        <p>سؤال 3: ما هو العاصمة الرسمية للمغرب؟</p>
+        <label><input type="radio" name="question3" value="A"> الرباط</label><br>
+        <label><input type="radio" name="question3" value="B"> الدار البيضاء</label><br>
+        <label><input type="radio" name="question3" value="C"> مراكش</label><br>
+        <label><input type="radio" name="question3" value="D"> فاس</label><br>
+
+        <input type="submit" value="تقديم">
+    </form>
+    <h1>النتيجة:</h1>
+    <div id="results"></div>
+</body>
+</html>
